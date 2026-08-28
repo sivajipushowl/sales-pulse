@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>PushOwl Sales Pulse</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  color-scheme:light dark;
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --baseline:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --accent:#2a78d6;
+  --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --crit:#d03b3b; --neutral:#898781;
+  --good-text:#006300;
+  --chip-good:rgba(12,163,12,.12); --chip-warn:rgba(250,178,25,.16); --chip-serious:rgba(236,131,90,.16);
+  --chip-crit:rgba(208,59,59,.12); --chip-neutral:rgba(137,135,129,.14); --chip-up:rgba(42,120,214,.12);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#fff; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --ring:rgba(255,255,255,.10);
+    --accent:#3987e5; --good-text:#0ca30c;
+    --chip-good:rgba(12,163,12,.18); --chip-warn:rgba(250,178,25,.14); --chip-serious:rgba(236,131,90,.16);
+    --chip-crit:rgba(208,59,59,.22); --chip-neutral:rgba(137,135,129,.18); --chip-up:rgba(57,135,229,.20);
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);
+  font-family:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:14px;line-height:1.45}
+.wrap{max-width:1060px;margin:0 auto;padding:28px 20px 60px}
+header.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin-bottom:6px}
+h1{font-size:21px;font-weight:700;margin:0;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:12.5px}
+.note{color:var(--ink-2);font-size:12.5px;margin:2px 0 18px;max-width:720px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:18px}
+.seg{display:inline-flex;border:1px solid var(--ring);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--ink-2);padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
+.seg button.on{background:var(--accent);color:#fff;font-weight:600}
+.seg button:not(.on):hover{background:var(--chip-neutral)}
+select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--ring);
+  border-radius:8px;padding:7px 10px;cursor:pointer;max-width:230px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:18px}
+.tile{background:var(--surface);border:1px solid var(--ring);border-radius:10px;padding:12px 14px}
+.tile .v{font-size:26px;font-weight:700;line-height:1.1}
+.tile .l{color:var(--ink-2);font-size:12px;margin-top:3px;display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.panel{background:var(--surface);border:1px solid var(--ring);border-radius:10px;padding:16px 18px;margin-bottom:18px}
+.panel h2{font-size:14px;font-weight:600;margin:0 0 4px}
+.panel .ph{color:var(--muted);font-size:12px;margin:0 0 14px}
+.brow{display:grid;grid-template-columns:210px 1fr 46px;gap:10px;align-items:center;margin:7px 0}
+.brow .bl{font-size:12.5px;color:var(--ink-2);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brow .bn{font-size:12.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.bar{display:flex;height:16px;gap:2px}
+.bar span{display:block;height:100%;border-radius:0 4px 4px 0;min-width:3px}
+.bar span:first-child{border-radius:4px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:12px;color:var(--ink-2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+.tblwrap{overflow-x:auto}
+th{color:var(--muted);font-weight:500;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
+  text-align:left;padding:8px 10px;border-bottom:1px solid var(--baseline);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--grid);vertical-align:top}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
+.chip::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
+.c-happened{background:var(--chip-good);color:var(--good-text)}
+.c-happened_unverified,.c-pending,.c-unclear{background:var(--chip-warn);color:var(--ink-2)}
+.c-no_show{background:var(--chip-crit);color:var(--crit)}
+.c-not_tracked{background:var(--chip-serious);color:var(--serious)}
+.c-canceled{background:var(--chip-neutral);color:var(--ink-2)}
+.c-upcoming{background:var(--chip-up);color:var(--accent)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.foot{color:var(--muted);font-size:12px;margin-top:22px;max-width:760px}
+.foot b{color:var(--ink-2);font-weight:600}
+.count{color:var(--muted);font-size:12px;margin:0 0 8px}
+@media (max-width:700px){.brow{grid-template-columns:120px 1fr 40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>PushOwl Sales Pulse</h1>
+  <span class="sub" id="genat"></span>
+</header>
+<p class="note">Aggregate view of sales meeting bookings (Calendly), attendance and outcomes (Read AI).
+Lead-level details live in the source platforms &mdash; the links in the table require a Read AI login.</p>
+
+<div class="filters">
+  <div class="seg" id="rangeSeg">
+    <button data-days="2">Last 2 days</button>
+    <button data-days="7" class="on">Last 7 days</button>
+    <button data-days="0">All</button>
+  </div>
+  <select id="fType"><option value="">All event types</option></select>
+  <select id="fHost"><option value="">All sales execs</option></select>
+  <select id="fOutcome"><option value="">All outcomes</option></select>
+</div>
+
+<div class="tiles" id="tiles"></div>
+
+<div class="panel">
+  <h2>Bookings by event type</h2>
+  <p class="ph">Each bar splits into meeting outcomes</p>
+  <div id="chart"></div>
+  <div class="legend" id="legend"></div>
+</div>
+
+<div class="panel">
+  <h2>Bookings by sales exec</h2>
+  <p class="ph">Same outcome split, grouped by host</p>
+  <div id="chartHost"></div>
+</div>
+
+<div class="panel">
+  <h2>Meetings</h2>
+  <p class="count" id="rowcount"></p>
+  <div class="tblwrap">
+  <table>
+    <thead><tr><th>When (IST)</th><th>Event type</th><th>Sales exec</th><th>Outcome</th><th>Details</th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  </div>
+</div>
+
+<p class="foot" id="foot"></p>
+</div>
+
+<script id="data" type="application/json">{"meta": {"generated_at": "2026-08-27T13:09:34+00:00", "window": {"from": "2026-08-20T00:00:00Z", "to": "2026-08-28T00:00:00Z"}, "match": {"past_active": 33, "matched": 24}, "deal_data": "pending"}, "rows": [{"start": "2026-08-20T03:00:00Z", "event_name": "Managed Services - Intro call", "outcome": "happened", "host": "Anand", "canceler_type": null, "readai_url": null, "duration_min": 48.6}, {"start": "2026-08-20T08:00:00Z", "event_name": "Brevo Managed Services - Intro call ", "outcome": "not_tracked", "host": "Mugesh Raman Marudhai", "canceler_type": null, "readai_url": null, "duration_min": null}, {"start": "2026-08-20T09:00:00Z", "event_name": "PushOwl Onboarding", "outcome": "happened", "host": "Anand", "canceler_type": null, "readai_url": null, "duration_min": 41.5}, {"start": "2026-08-20T09:30:00Z", "event_name": "Managed Services - Intro call", "outcome": "happened", "host": "Mugesh Raman Marudhai", "canceler_type": null, "readai_url": null, "duration_min": 45.2}, {"start": "2026-08-20T13:30:00Z", "event_name": "Brevo Managed Services - Intro call ", "outcome": "not_tracked", "host": "Aro", "canceler_type": null, "readai_url": null, "duration_min": null}, {"start": "2026-08-20T15:00:00Z", "event_name": "PushOwl Onboarding", "outcome": "canceled", "host": "Aritra Bhadra", "canceler_type": "invitee", "readai_url": null, "duration_min": null}, {"start": "2026-08-21T05:30:00Z", "event_name": "Managed Services - Strategy call", "outcome": "not_tracked", "host": "Medha Goje", "canceler_type": null, "readai_url": null, "duration_min": null}, {"start": "2026-08-21T06:30:00Z", "event_name": "Brevo Managed Services - Intro call ", "outcome": "canceled", "host": "Aritra Bhadra", "canceler_type": "invitee", "readai_url": null, "duration_min": null}, {"start": "2026-08-21T07:30:00Z", "event_name": "PushOwl Onboarding", "outcome": "not_tracked", "host": "Medha Goje", "canceler_type": null, "readai_url": null, "duration_min": null}, {"start": "2026-08-21T08:00:00Z", "event_name": "Ecom Marketing Consultation", "outcome": "happened", "host": "Aro", "canceler_type": null, "readai_url": null, "duration_min": 35.6}, {"start": "2026-08-21T09:00:00Z", "event_name": "Sync with Suhail | PushOwl - Brevo", "outcome": "canceled", "host": "Suhail S.", "canceler_type": "invitee", "readai_url": null, "duration_min": null}, {"start": "2026-08-21T09:30:00Z", "event_name": "PushOwl Product Demo", "outcome": "happened", "host": "Medha Goje", "canceler_type": null, "readai_url": null, "duration_min": 34.1}, {"start": "2026-08-21T13:00:00Z", "event_name": "Brevo Managed Services - Intro call ", "outcome": "happened", "host": "Suhail S.", "canceler_type": null, "readai_url": null, "duration_min": 12.4}, {"start": "2026-08-21T16:45:00Z", "event_name": "60 Minute Meeting", "outcome": "canceled", "host": "Aritra Bhadra", "canceler_type": "host", "readai_url": null, "duration_min": null}, {"start": "2026-08-21T20:00:00Z", "event_name": "Managed Services - Intro call", "outcome": "not_tracked", "host": "Aro", "canceler_type": null, "readai_url": null, "duration_min": null}, {"start": "2026-08-24T03:30:00Z", "event_name": "Brevo Managed Services - Intro call ", "outcome": "happened_unverified", "host": "Medha Goje", "canceler_type": null, "readai_url": null, "duration_min": 17.9}, {"start": "2026-08-24T07:30:00Z", "event_name": "Managed Services - Strategy call", "outcome": "happened_unverified", "host": "Mugesh Raman Marudhai", "canceler_type": null, "readai_url": null, "duration_min": 23.4}, {"start": "2026-08-24T08:00:00Z", "event_name": "Brevo Managed Services - Intro call ", "outcome": "happened", "host": "Aritra Bhadra", "canceler_type": null, "readai_url": null, "duration_min": 41.9}, {"start": "2026-08-24T09:00:00Z", "event_name": "PushOwl Onboarding", "outcome": "canceled", "host": "Aritra Bhadra", "canceler_type": "invitee", "readai_url": null, "duration_min": null}, {"start": "2026-08-24T09:30:00Z", "event_name": "Managed Services - Intro call", "outcome": "happened", "host": "Medha Goje", "canceler_type": null, "readai_url": null, "duration_min": 56.3}, {"start": "2026-08-24T17:30:00Z", "event_name": "Sync with Suhail | PushOwl - Brevo", "outcome": "happened", "host": "Suhail S.", "canceler_type": null, "readai_url": null, "duration_min": 55.9}, {"start": "2026-08-24T20:30:00Z", "event_name": "Managed Services - Strategy call", "outcome": "no_show", "host": "Aritra Bhadra", "canceler_type": null, "readai_url": null, "duration_min": 17.0}, {"start": "2026-08-25T06:00:00Z", "event_name": "30 Minute Meeting", "outcome": "happened", "host": "Aritra Bhadra", "canceler_type": null, "readai_url": null, "duration_min": 13.8}, {"start": "2026-08-25T07:00:00Z", "event_name": "PushOwl Onboarding", "outcome": "happened", "host": "Medha Goje", "canceler_type": null, "readai_url": null, "duration_min": 56.3}, {"start": "2026-08-25T07:30:00Z", "event_name": "Ecom Marketing Consultation", "outcome": "happened_unverified", "host": "Aro", "canceler_type": null, "readai_url": null, "duration_min": 36.5}, {"start": "2026-08-25T09:30:00Z", "event_name": "Sync with Suhail | PushOwl - Brevo", "outcome": "not_tracked", "host": "Suhail S.", "canceler_type": null, "readai_url": null, "duration_min": null}, {"start": "2026-08-25T09:30:00Z", "event_name": "Managed Services - Intro call", "outcome": "canceled", "host": "Mugesh Raman Marudhai", "canceler_type": "invitee", "readai_url": null, "duration_min": null}, {"start": "2026-08-25T12:00:00Z", "event_name": "Sync with Suhail | PushOwl - Brevo", "outcome": "happened", "host": "Suhail S.", "canceler_type": null, "readai_url": null, "duration_min": 39.5}, {"start": "2026-08-25T12:30:00Z", "event_name": "PushOwl Product Demo", "outcome": "not_tracked", "host": "Mugesh Raman Marudhai", "canceler_type": null, "readai_url": null, "duration_min": null}, {"start": "2026-08-25T12:30:00Z", "event_name": "Managed Services - Intro call", "outcome": "not_tracked", "host": "Medha Goje", "canceler_type": null, "readai_url": null, "duration_min": null}, {"start": "2026-08-25T14:00:00Z", "event_name": "PushOwl Product Demo", "outcome": "happened", "host": "Aritra Bhadra", "canceler_type": null, "readai_url": null, "duration_min": 54.0}, {"start": "2026-08-25T16:00:00Z", "event_name": "Managed Services - Strategy call", "outcome": "not_tracked", "host": "Suhail S.", "canceler_type": null, "readai_url": null, "duration_min": null}, {"start": "2026-08-25T19:30:00Z", "event_name": "Brevo Managed Services - Intro call ", "outcome": "canceled", "host": "Suhail S.", "canceler_type": "host", "readai_url": null, "duration_min": null}, {"start": "2026-08-26T05:30:00Z", "event_name": "30 Minute Meeting", "outcome": "canceled", "host": "Aritra Bhadra", "canceler_type": "host", "readai_url": null, "duration_min": null}, {"start": "2026-08-26T18:30:00Z", "event_name": "PushOwl Onboarding", "outcome": "canceled", "host": "Suhail S.", "canceler_type": "host", "readai_url": null, "duration_min": null}, {"start": "2026-08-26T19:30:00Z", "event_name": "Brevo Managed Services - Intro call ", "outcome": "no_show", "host": "Aritra Bhadra", "canceler_type": null, "readai_url": null, "duration_min": 15.4}, {"start": "2026-08-27T06:30:00Z", "event_name": "PushOwl Onboarding", "outcome": "no_show", "host": "Aritra Bhadra", "canceler_type": null, "readai_url": null, "duration_min": 17.5}, {"start": "2026-08-27T08:00:00Z", "event_name": "Brevo Managed Services - Intro call ", "outcome": "happened", "host": "Mugesh Raman Marudhai", "canceler_type": null, "readai_url": null, "duration_min": 73.5}, {"start": "2026-08-27T08:00:00Z", "event_name": "Brevo Managed Services - Intro call ", "outcome": "happened", "host": "Aritra Bhadra", "canceler_type": null, "readai_url": null, "duration_min": 53.8}, {"start": "2026-08-27T08:30:00Z", "event_name": "Managed Services - Intro call", "outcome": "happened", "host": "Aro", "canceler_type": null, "readai_url": null, "duration_min": 36.9}, {"start": "2026-08-27T09:00:00Z", "event_name": "Managed Services_30mins_IN", "outcome": "happened", "host": "Osheen Kailash Karle", "canceler_type": null, "readai_url": null, "duration_min": 54.4}, {"start": "2026-08-27T12:30:00Z", "event_name": "Brevo Managed Services - Intro call ", "outcome": "happened", "host": "Medha Goje", "canceler_type": null, "readai_url": null, "duration_min": 13.7}, {"start": "2026-08-27T18:30:00Z", "event_name": "30 Minute Meeting", "outcome": "upcoming", "host": "Aritra Bhadra", "canceler_type": null, "readai_url": null, "duration_min": null}]}</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const rows = D.rows;
+const OUT = {
+  happened:            {label:'Happened',        color:'var(--good)'},
+  happened_unverified: {label:'Happened (unverified)', color:'var(--warn)'},
+  pending:             {label:'Too recent',      color:'var(--warn)'},
+  unclear:             {label:'Unclear',         color:'var(--warn)'},
+  no_show:             {label:'No-show',         color:'var(--crit)'},
+  not_tracked:         {label:'No recording',    color:'var(--serious)'},
+  canceled:            {label:'Canceled',        color:'var(--neutral)'},
+  upcoming:            {label:'Upcoming',        color:'var(--accent)'}
+};
+const ORDER = ['happened','happened_unverified','pending','unclear','no_show','not_tracked','canceled','upcoming'];
+const state = {days:7, type:'', host:'', outcome:''};
+const NOW = new Date(D.meta.generated_at);
+function fmtIST(iso){
+  try{return new Date(iso).toLocaleString('en-IN',{timeZone:'Asia/Kolkata',day:'numeric',month:'short',hour:'numeric',minute:'2-digit',hour12:true});}
+  catch(e){return iso;}
+}
+function filtered(){
+  return rows.filter(r=>{
+    if(state.days){const cut=new Date(NOW-state.days*864e5); if(new Date(r.start)<cut) return false;}
+    if(state.type && r.event_name!==state.type) return false;
+    if(state.host && r.host!==state.host) return false;
+    if(state.outcome && r.outcome!==state.outcome) return false;
+    return true;
+  });
+}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function stackChart(F, keyFn, el){
+  const by = {};
+  F.forEach(r=>{const k=keyFn(r);(by[k]=by[k]||{total:0}); by[k].total++; by[k][r.outcome]=(by[k][r.outcome]||0)+1;});
+  const entries = Object.entries(by).sort((a,b)=>b[1].total-a[1].total);
+  const max = Math.max(1,...entries.map(e=>e[1].total));
+  document.getElementById(el).innerHTML = entries.map(([name,c])=>{
+    const segs = ORDER.filter(k=>c[k]).map(k=>
+      `<span style="background:${OUT[k].color};width:${(c[k]/max*100)}%" title="${esc(name)} — ${OUT[k].label}: ${c[k]}"></span>`).join('');
+    return `<div class="brow"><div class="bl" title="${esc(name)}">${esc(name)}</div><div class="bar">${segs}</div><div class="bn">${c.total}</div></div>`;
+  }).join('') || '<p class="ph">No bookings match the current filters.</p>';
+}
+function render(){
+  const F = filtered();
+  const n = k => F.filter(r=>r.outcome===k).length;
+  const happened = n('happened')+n('happened_unverified');
+  const decided = happened + n('no_show') + n('not_tracked');
+  const showRate = decided ? Math.round(happened/decided*100) : null;
+  const tiles = [
+    {v:F.length, l:'Bookings', c:'var(--accent)'},
+    {v:happened, l:'Happened', c:'var(--good)'},
+    {v:n('no_show'), l:'No-shows', c:'var(--crit)'},
+    {v:n('not_tracked'), l:'No recording', c:'var(--serious)'},
+    {v:n('canceled'), l:'Canceled', c:'var(--neutral)'},
+    {v:showRate===null?'–':showRate+'%', l:'Show rate (of past meetings)', c:'var(--good)'}
+  ];
+  document.getElementById('tiles').innerHTML = tiles.map(t=>
+    `<div class="tile"><div class="v">${t.v}</div><div class="l"><span class="dot" style="background:${t.c}"></span>${t.l}</div></div>`).join('');
+  stackChart(F, r=>r.event_name, 'chart');
+  stackChart(F, r=>r.host, 'chartHost');
+  const present = new Set(); F.forEach(r=>present.add(r.outcome));
+  document.getElementById('legend').innerHTML = ORDER.filter(k=>present.has(k)).map(k=>
+    `<span><i style="background:${OUT[k].color}"></i>${OUT[k].label}</span>`).join('');
+  document.getElementById('rowcount').textContent = `${F.length} booking${F.length===1?'':'s'}, newest first — no lead details on this page`;
+  const sorted=[...F].sort((a,b)=>new Date(b.start)-new Date(a.start));
+  document.getElementById('tbody').innerHTML = sorted.map(r=>{
+    const o=OUT[r.outcome];
+    const link = r.readai_url
+      ? `<a href="${esc(r.readai_url)}" target="_blank" rel="noopener">Meeting report ↗</a>${r.duration_min?` <span style="color:var(--muted)">· ${r.duration_min} min</span>`:''}`
+      : (r.outcome==='canceled' ? `<span style="color:var(--muted)">canceled by ${esc(r.canceler_type||'—')}</span>` : '<span style="color:var(--muted)">—</span>');
+    return `<tr>
+      <td class="num">${fmtIST(r.start)}</td>
+      <td>${esc(r.event_name)}</td>
+      <td>${esc(r.host)}</td>
+      <td><span class="chip c-${r.outcome}">${o.label}</span></td>
+      <td>${link}</td>
+    </tr>`;
+  }).join('');
+}
+const typeSel=document.getElementById('fType'), hostSel=document.getElementById('fHost'), outSel=document.getElementById('fOutcome');
+[...new Set(rows.map(r=>r.event_name))].sort().forEach(t=>typeSel.add(new Option(t,t)));
+[...new Set(rows.map(r=>r.host))].sort().forEach(h=>hostSel.add(new Option(h,h)));
+ORDER.forEach(k=>outSel.add(new Option(OUT[k].label,k)));
+typeSel.onchange=()=>{state.type=typeSel.value;render();};
+hostSel.onchange=()=>{state.host=hostSel.value;render();};
+outSel.onchange=()=>{state.outcome=outSel.value;render();};
+document.querySelectorAll('#rangeSeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#rangeSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); state.days=+b.dataset.days; render();
+});
+document.getElementById('genat').textContent = 'Data as of ' + fmtIST(D.meta.generated_at) + ' IST';
+const m=D.meta.match;
+document.getElementById('foot').innerHTML =
+  `<b>How to read this.</b> “Happened” = a Read AI recording exists with a participant from the lead's side. ` +
+  `“No recording” = no Read AI record near the slot — usually a no-show, sometimes a tracking gap. ` +
+  `Read AI match rate this window: ${m.matched}/${m.past_active} past meetings. ` +
+  `This page is aggregate-only by design; meeting reports open in Read AI and need a Read AI login.`;
+render();
+</script>
+</body>
+</html>
