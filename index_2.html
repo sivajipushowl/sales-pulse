@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>PushOwl Sales Pulse</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  color-scheme:light dark;
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --baseline:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --accent:#2a78d6; --accent-wash:rgba(42,120,214,.08);
+  --good:#006300; --bad:#d03b3b;
+  --chip-good:rgba(12,163,12,.10); --chip-bad:rgba(208,59,59,.10); --chip-warn:rgba(250,178,25,.14);
+  --chip-serious:rgba(236,131,90,.16); --chip-neutral:rgba(137,135,129,.14); --chip-up:rgba(42,120,214,.12);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#fff; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --ring:rgba(255,255,255,.10);
+    --accent:#3987e5; --accent-wash:rgba(57,135,229,.12);
+    --good:#0ca30c; --bad:#e66767;
+    --chip-good:rgba(12,163,12,.16); --chip-bad:rgba(208,59,59,.20); --chip-warn:rgba(250,178,25,.12);
+    --chip-serious:rgba(236,131,90,.16); --chip-neutral:rgba(137,135,129,.18); --chip-up:rgba(57,135,229,.20);
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);
+  font-family:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:14px;line-height:1.45}
+.wrap{max-width:1060px;margin:0 auto;padding:28px 20px 60px}
+header.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin-bottom:6px}
+h1{font-size:21px;font-weight:700;margin:0;letter-spacing:-.01em}
+.freshness{display:flex;align-items:center;gap:8px;margin:2px 0 16px;font-size:12.5px;color:var(--muted)}
+.dotlive{width:7px;height:7px;border-radius:50%;background:var(--good);flex:none;box-shadow:0 0 0 0 rgba(12,163,12,.5);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(12,163,12,.45)}70%{box-shadow:0 0 0 6px rgba(12,163,12,0)}100%{box-shadow:0 0 0 0 rgba(12,163,12,0)}}
+@media (prefers-reduced-motion: reduce){.dotlive{animation:none}}
+.refresh{border:1px solid var(--ring);background:var(--surface);color:var(--ink-2);border-radius:7px;
+  padding:4px 10px;font:inherit;font-size:12px;cursor:pointer}
+.refresh:hover{background:var(--accent-wash)}
+.refresh[disabled]{opacity:.5;cursor:default}
+.note{color:var(--ink-2);font-size:12.5px;margin:0 0 18px;max-width:720px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:18px}
+.seg{display:inline-flex;border:1px solid var(--ring);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--ink-2);padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
+.seg button.on{background:var(--accent);color:#fff;font-weight:600}
+.seg button:not(.on):hover{background:var(--chip-neutral)}
+select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--ring);
+  border-radius:8px;padding:7px 10px;cursor:pointer;max-width:230px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:18px}
+.tile{background:var(--surface);border:1px solid var(--ring);border-radius:10px;padding:12px 14px}
+.tile .v{font-size:26px;font-weight:700;line-height:1.1}
+.tile .l{color:var(--ink-2);font-size:12px;margin-top:3px;display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.panel{background:var(--surface);border:1px solid var(--ring);border-radius:10px;padding:16px 18px;margin-bottom:18px}
+.panel h2{font-size:14px;font-weight:600;margin:0 0 4px}
+.panel .ph{color:var(--muted);font-size:12px;margin:0 0 14px}
+.brow{display:grid;grid-template-columns:210px 1fr 46px;gap:10px;align-items:center;margin:7px 0}
+.brow .bl{font-size:12.5px;color:var(--ink-2);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brow .bn{font-size:12.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.bar{display:flex;height:16px;gap:2px}
+.bar span{display:block;height:100%;border-radius:0 4px 4px 0;min-width:3px}
+.bar span:first-child{border-radius:4px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:12px;color:var(--ink-2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+.tblwrap{overflow-x:auto}
+th{color:var(--muted);font-weight:500;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
+  text-align:left;padding:8px 10px;border-bottom:1px solid var(--baseline);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--grid);vertical-align:top}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
+.chip::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
+.c-happened{background:var(--chip-good);color:var(--good)}
+.c-happened_unverified,.c-pending,.c-unclear{background:var(--chip-warn);color:var(--ink-2)}
+.c-no_show{background:var(--chip-bad);color:var(--bad)}
+.c-not_tracked{background:var(--chip-serious);color:var(--ink-2)}
+.c-canceled{background:var(--chip-neutral);color:var(--ink-2)}
+.c-upcoming{background:var(--chip-up);color:var(--accent)}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.foot{color:var(--muted);font-size:12px;margin-top:22px;max-width:760px}
+.foot b{color:var(--ink-2);font-weight:600}
+.count{color:var(--muted);font-size:12px;margin:0 0 8px}
+.err{background:var(--chip-bad);color:var(--bad);border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:14px;display:none}
+@media (max-width:700px){.brow{grid-template-columns:120px 1fr 40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>PushOwl Sales Pulse</h1>
+</header>
+<div class="freshness">
+  <span class="dotlive" title="Auto-refreshing"></span>
+  <span id="fresh">Loading…</span>
+  <button class="refresh" id="refreshBtn">Refresh now</button>
+</div>
+<p class="note">Aggregate view of sales meeting bookings (Calendly), attendance and outcomes (Read AI), and CRM stage (Brevo).
+No lead-level PII. The page re-checks for new data every 5 minutes.</p>
+
+<div class="err" id="err"></div>
+
+<div class="filters">
+  <div class="seg" id="rangeSeg">
+    <button data-days="2">Last 2 days</button>
+    <button data-days="7" class="on">Last 7 days</button>
+    <button data-days="0">All</button>
+  </div>
+  <select id="fType"><option value="">All event types</option></select>
+  <select id="fHost"><option value="">All sales execs</option></select>
+  <select id="fOutcome"><option value="">All outcomes</option></select>
+</div>
+
+<div class="tiles" id="tiles"></div>
+
+<div class="panel">
+  <h2>Bookings by event type</h2><p class="ph">Each bar splits into meeting outcomes</p>
+  <div id="chart"></div><div class="legend" id="legend"></div>
+</div>
+<div class="panel">
+  <h2>Bookings by sales exec</h2><p class="ph">Same outcome split, grouped by host</p>
+  <div id="chartHost"></div>
+</div>
+<div class="panel">
+  <h2>Meetings</h2><p class="count" id="rowcount"></p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>When (IST)</th><th>Event type</th><th>Sales exec</th><th>Outcome</th><th>Details</th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table></div>
+</div>
+
+<p class="foot" id="foot"></p>
+</div>
+
+<script>
+const OUT = {
+  happened:{label:'Happened',color:'var(--good)'},
+  happened_unverified:{label:'Happened (unverified)',color:'#eda100'},
+  pending:{label:'Too recent',color:'#eda100'},
+  unclear:{label:'Unclear',color:'#eda100'},
+  no_show:{label:'No-show',color:'var(--bad)'},
+  not_tracked:{label:'No recording',color:'#ec835a'},
+  canceled:{label:'Canceled',color:'var(--muted)'},
+  upcoming:{label:'Upcoming',color:'var(--accent)'}
+};
+const ORDER = ['happened','happened_unverified','pending','unclear','no_show','not_tracked','canceled','upcoming'];
+const state = {days:7, type:'', host:'', outcome:''};
+let D = null, NOW = new Date(), filtersBuilt = false;
+const REFRESH_MS = 5*60*1000;
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function fmtIST(iso){try{return new Date(iso).toLocaleString('en-IN',{timeZone:'Asia/Kolkata',day:'numeric',month:'short',hour:'numeric',minute:'2-digit',hour12:true});}catch(e){return iso;}}
+function ago(iso){const s=Math.max(0,(Date.now()-new Date(iso))/1000);
+  if(s<90)return 'just now'; if(s<3600)return Math.round(s/60)+' min ago';
+  if(s<86400)return Math.round(s/3600)+' h ago'; return Math.round(s/86400)+' d ago';}
+
+async function load(manual){
+  const btn=document.getElementById('refreshBtn'); if(manual){btn.disabled=true;btn.textContent='Refreshing…';}
+  try{
+    const res = await fetch('./data.json?t='+Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    D = await res.json(); NOW = new Date(D.meta.generated_at);
+    document.getElementById('err').style.display='none';
+    if(!filtersBuilt){buildFilters();filtersBuilt=true;}
+    render(); paintFresh();
+  }catch(e){
+    const el=document.getElementById('err'); el.style.display='block';
+    el.textContent='Could not load latest data ('+e.message+'). Showing the last version if available.';
+  }finally{ if(manual){btn.disabled=false;btn.textContent='Refresh now';} }
+}
+function paintFresh(){
+  if(!D) return;
+  document.getElementById('fresh').textContent = 'Data as of '+fmtIST(D.meta.generated_at)+' IST · updated '+ago(D.meta.generated_at);
+}
+function filtered(){
+  return D.rows.filter(r=>{
+    if(state.days){const cut=new Date(NOW-state.days*864e5); if(new Date(r.start)<cut) return false;}
+    if(state.type && r.event_name!==state.type) return false;
+    if(state.host && r.host!==state.host) return false;
+    if(state.outcome && r.outcome!==state.outcome) return false;
+    return true;
+  });
+}
+function stackChart(F, keyFn, el){
+  const by={}; F.forEach(r=>{const k=keyFn(r);(by[k]=by[k]||{total:0}); by[k].total++; by[k][r.outcome]=(by[k][r.outcome]||0)+1;});
+  const entries=Object.entries(by).sort((a,b)=>b[1].total-a[1].total);
+  const max=Math.max(1,...entries.map(e=>e[1].total));
+  document.getElementById(el).innerHTML = entries.map(([name,c])=>{
+    const segs=ORDER.filter(k=>c[k]).map(k=>`<span style="background:${OUT[k].color};width:${(c[k]/max*100)}%" title="${esc(name)} — ${OUT[k].label}: ${c[k]}"></span>`).join('');
+    return `<div class="brow"><div class="bl" title="${esc(name)}">${esc(name)}</div><div class="bar">${segs}</div><div class="bn">${c.total}</div></div>`;
+  }).join('') || '<p class="ph">No bookings match the current filters.</p>';
+}
+function render(){
+  const F=filtered();
+  const n=k=>F.filter(r=>r.outcome===k).length;
+  const happened=n('happened')+n('happened_unverified');
+  const decided=happened+n('no_show')+n('not_tracked');
+  const showRate=decided?Math.round(happened/decided*100):null;
+  const tiles=[
+    {v:F.length,l:'Bookings',c:'var(--accent)'},
+    {v:happened,l:'Happened',c:'var(--good)'},
+    {v:n('no_show'),l:'No-shows',c:'var(--bad)'},
+    {v:n('not_tracked'),l:'No recording',c:'#ec835a'},
+    {v:n('canceled'),l:'Canceled',c:'var(--muted)'},
+    {v:showRate===null?'–':showRate+'%',l:'Show rate (of past mtgs)',c:'var(--good)'}
+  ];
+  document.getElementById('tiles').innerHTML=tiles.map(t=>`<div class="tile"><div class="v">${t.v}</div><div class="l"><span class="dot" style="background:${t.c}"></span>${t.l}</div></div>`).join('');
+  stackChart(F,r=>r.event_name,'chart'); stackChart(F,r=>r.host,'chartHost');
+  const present=new Set(); F.forEach(r=>present.add(r.outcome));
+  document.getElementById('legend').innerHTML=ORDER.filter(k=>present.has(k)).map(k=>`<span><i style="background:${OUT[k].color}"></i>${OUT[k].label}</span>`).join('');
+  document.getElementById('rowcount').textContent=`${F.length} booking${F.length===1?'':'s'}, newest first — no lead details on this page`;
+  const sorted=[...F].sort((a,b)=>new Date(b.start)-new Date(a.start));
+  document.getElementById('tbody').innerHTML=sorted.map(r=>{
+    const o=OUT[r.outcome];
+    const link=r.readai_url?`<a href="${esc(r.readai_url)}" target="_blank" rel="noopener">Meeting report ↗</a>${r.duration_min?` <span style="color:var(--muted)">· ${r.duration_min} min</span>`:''}`
+      :(r.outcome==='canceled'?`<span style="color:var(--muted)">canceled by ${esc(r.canceler_type||'—')}</span>`:'<span style="color:var(--muted)">—</span>');
+    return `<tr><td class="num">${fmtIST(r.start)}</td><td>${esc(r.event_name)}</td><td>${esc(r.host)}</td>
+      <td><span class="chip c-${r.outcome}">${o.label}</span></td><td>${link}</td></tr>`;
+  }).join('');
+  const m=D.meta.match;
+  document.getElementById('foot').innerHTML=
+    `<b>How to read this.</b> “Happened” = a Read AI recording exists with a participant from the lead's side. `+
+    `“No recording” = no Read AI record near the slot — usually a no-show, sometimes a tracking gap. `+
+    (m?`Read AI match rate this window: ${m.matched}/${m.past_active} past meetings. `:'')+
+    `Aggregate-only by design. Bookings &amp; deal stages refresh every ~5 min; attendance/outcomes may lag while Read AI processes recordings.`;
+}
+function buildFilters(){
+  const typeSel=document.getElementById('fType'),hostSel=document.getElementById('fHost'),outSel=document.getElementById('fOutcome');
+  [...new Set(D.rows.map(r=>r.event_name))].sort().forEach(t=>typeSel.add(new Option(t,t)));
+  [...new Set(D.rows.map(r=>r.host))].sort().forEach(h=>hostSel.add(new Option(h,h)));
+  ORDER.forEach(k=>outSel.add(new Option(OUT[k].label,k)));
+  typeSel.onchange=()=>{state.type=typeSel.value;render();};
+  hostSel.onchange=()=>{state.host=hostSel.value;render();};
+  outSel.onchange=()=>{state.outcome=outSel.value;render();};
+  document.querySelectorAll('#rangeSeg button').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('#rangeSeg button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); state.days=+b.dataset.days; render();});
+}
+document.getElementById('refreshBtn').onclick=()=>load(true);
+setInterval(()=>load(false), REFRESH_MS);
+setInterval(paintFresh, 30000);
+load(false);
+</script>
+</body>
+</html>

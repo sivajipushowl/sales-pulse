@@ -1,0 +1,403 @@
+{
+ "meta": {
+  "generated_at": "2026-08-27T13:09:34+00:00",
+  "window": {
+   "from": "2026-08-20T00:00:00Z",
+   "to": "2026-08-28T00:00:00Z"
+  },
+  "match": {
+   "past_active": 33,
+   "matched": 24
+  },
+  "deal_data": "pending"
+ },
+ "rows": [
+  {
+   "start": "2026-08-20T03:00:00Z",
+   "event_name": "Managed Services - Intro call",
+   "outcome": "happened",
+   "host": "Anand",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 48.6
+  },
+  {
+   "start": "2026-08-20T08:00:00Z",
+   "event_name": "Brevo Managed Services - Intro call ",
+   "outcome": "not_tracked",
+   "host": "Mugesh Raman Marudhai",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-20T09:00:00Z",
+   "event_name": "PushOwl Onboarding",
+   "outcome": "happened",
+   "host": "Anand",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 41.5
+  },
+  {
+   "start": "2026-08-20T09:30:00Z",
+   "event_name": "Managed Services - Intro call",
+   "outcome": "happened",
+   "host": "Mugesh Raman Marudhai",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 45.2
+  },
+  {
+   "start": "2026-08-20T13:30:00Z",
+   "event_name": "Brevo Managed Services - Intro call ",
+   "outcome": "not_tracked",
+   "host": "Aro",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-20T15:00:00Z",
+   "event_name": "PushOwl Onboarding",
+   "outcome": "canceled",
+   "host": "Aritra Bhadra",
+   "canceler_type": "invitee",
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-21T05:30:00Z",
+   "event_name": "Managed Services - Strategy call",
+   "outcome": "not_tracked",
+   "host": "Medha Goje",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-21T06:30:00Z",
+   "event_name": "Brevo Managed Services - Intro call ",
+   "outcome": "canceled",
+   "host": "Aritra Bhadra",
+   "canceler_type": "invitee",
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-21T07:30:00Z",
+   "event_name": "PushOwl Onboarding",
+   "outcome": "not_tracked",
+   "host": "Medha Goje",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-21T08:00:00Z",
+   "event_name": "Ecom Marketing Consultation",
+   "outcome": "happened",
+   "host": "Aro",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 35.6
+  },
+  {
+   "start": "2026-08-21T09:00:00Z",
+   "event_name": "Sync with Suhail | PushOwl - Brevo",
+   "outcome": "canceled",
+   "host": "Suhail S.",
+   "canceler_type": "invitee",
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-21T09:30:00Z",
+   "event_name": "PushOwl Product Demo",
+   "outcome": "happened",
+   "host": "Medha Goje",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 34.1
+  },
+  {
+   "start": "2026-08-21T13:00:00Z",
+   "event_name": "Brevo Managed Services - Intro call ",
+   "outcome": "happened",
+   "host": "Suhail S.",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 12.4
+  },
+  {
+   "start": "2026-08-21T16:45:00Z",
+   "event_name": "60 Minute Meeting",
+   "outcome": "canceled",
+   "host": "Aritra Bhadra",
+   "canceler_type": "host",
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-21T20:00:00Z",
+   "event_name": "Managed Services - Intro call",
+   "outcome": "not_tracked",
+   "host": "Aro",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-24T03:30:00Z",
+   "event_name": "Brevo Managed Services - Intro call ",
+   "outcome": "happened_unverified",
+   "host": "Medha Goje",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 17.9
+  },
+  {
+   "start": "2026-08-24T07:30:00Z",
+   "event_name": "Managed Services - Strategy call",
+   "outcome": "happened_unverified",
+   "host": "Mugesh Raman Marudhai",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 23.4
+  },
+  {
+   "start": "2026-08-24T08:00:00Z",
+   "event_name": "Brevo Managed Services - Intro call ",
+   "outcome": "happened",
+   "host": "Aritra Bhadra",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 41.9
+  },
+  {
+   "start": "2026-08-24T09:00:00Z",
+   "event_name": "PushOwl Onboarding",
+   "outcome": "canceled",
+   "host": "Aritra Bhadra",
+   "canceler_type": "invitee",
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-24T09:30:00Z",
+   "event_name": "Managed Services - Intro call",
+   "outcome": "happened",
+   "host": "Medha Goje",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 56.3
+  },
+  {
+   "start": "2026-08-24T17:30:00Z",
+   "event_name": "Sync with Suhail | PushOwl - Brevo",
+   "outcome": "happened",
+   "host": "Suhail S.",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 55.9
+  },
+  {
+   "start": "2026-08-24T20:30:00Z",
+   "event_name": "Managed Services - Strategy call",
+   "outcome": "no_show",
+   "host": "Aritra Bhadra",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 17.0
+  },
+  {
+   "start": "2026-08-25T06:00:00Z",
+   "event_name": "30 Minute Meeting",
+   "outcome": "happened",
+   "host": "Aritra Bhadra",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 13.8
+  },
+  {
+   "start": "2026-08-25T07:00:00Z",
+   "event_name": "PushOwl Onboarding",
+   "outcome": "happened",
+   "host": "Medha Goje",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 56.3
+  },
+  {
+   "start": "2026-08-25T07:30:00Z",
+   "event_name": "Ecom Marketing Consultation",
+   "outcome": "happened_unverified",
+   "host": "Aro",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 36.5
+  },
+  {
+   "start": "2026-08-25T09:30:00Z",
+   "event_name": "Sync with Suhail | PushOwl - Brevo",
+   "outcome": "not_tracked",
+   "host": "Suhail S.",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-25T09:30:00Z",
+   "event_name": "Managed Services - Intro call",
+   "outcome": "canceled",
+   "host": "Mugesh Raman Marudhai",
+   "canceler_type": "invitee",
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-25T12:00:00Z",
+   "event_name": "Sync with Suhail | PushOwl - Brevo",
+   "outcome": "happened",
+   "host": "Suhail S.",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 39.5
+  },
+  {
+   "start": "2026-08-25T12:30:00Z",
+   "event_name": "PushOwl Product Demo",
+   "outcome": "not_tracked",
+   "host": "Mugesh Raman Marudhai",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-25T12:30:00Z",
+   "event_name": "Managed Services - Intro call",
+   "outcome": "not_tracked",
+   "host": "Medha Goje",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-25T14:00:00Z",
+   "event_name": "PushOwl Product Demo",
+   "outcome": "happened",
+   "host": "Aritra Bhadra",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 54.0
+  },
+  {
+   "start": "2026-08-25T16:00:00Z",
+   "event_name": "Managed Services - Strategy call",
+   "outcome": "not_tracked",
+   "host": "Suhail S.",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-25T19:30:00Z",
+   "event_name": "Brevo Managed Services - Intro call ",
+   "outcome": "canceled",
+   "host": "Suhail S.",
+   "canceler_type": "host",
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-26T05:30:00Z",
+   "event_name": "30 Minute Meeting",
+   "outcome": "canceled",
+   "host": "Aritra Bhadra",
+   "canceler_type": "host",
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-26T18:30:00Z",
+   "event_name": "PushOwl Onboarding",
+   "outcome": "canceled",
+   "host": "Suhail S.",
+   "canceler_type": "host",
+   "readai_url": null,
+   "duration_min": null
+  },
+  {
+   "start": "2026-08-26T19:30:00Z",
+   "event_name": "Brevo Managed Services - Intro call ",
+   "outcome": "no_show",
+   "host": "Aritra Bhadra",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 15.4
+  },
+  {
+   "start": "2026-08-27T06:30:00Z",
+   "event_name": "PushOwl Onboarding",
+   "outcome": "no_show",
+   "host": "Aritra Bhadra",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 17.5
+  },
+  {
+   "start": "2026-08-27T08:00:00Z",
+   "event_name": "Brevo Managed Services - Intro call ",
+   "outcome": "happened",
+   "host": "Mugesh Raman Marudhai",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 73.5
+  },
+  {
+   "start": "2026-08-27T08:00:00Z",
+   "event_name": "Brevo Managed Services - Intro call ",
+   "outcome": "happened",
+   "host": "Aritra Bhadra",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 53.8
+  },
+  {
+   "start": "2026-08-27T08:30:00Z",
+   "event_name": "Managed Services - Intro call",
+   "outcome": "happened",
+   "host": "Aro",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 36.9
+  },
+  {
+   "start": "2026-08-27T09:00:00Z",
+   "event_name": "Managed Services_30mins_IN",
+   "outcome": "happened",
+   "host": "Osheen Kailash Karle",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 54.4
+  },
+  {
+   "start": "2026-08-27T12:30:00Z",
+   "event_name": "Brevo Managed Services - Intro call ",
+   "outcome": "happened",
+   "host": "Medha Goje",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": 13.7
+  },
+  {
+   "start": "2026-08-27T18:30:00Z",
+   "event_name": "30 Minute Meeting",
+   "outcome": "upcoming",
+   "host": "Aritra Bhadra",
+   "canceler_type": null,
+   "readai_url": null,
+   "duration_min": null
+  }
+ ]
+}
